@@ -2,6 +2,7 @@ import { User } from "../../entities/User";
 import { ICreateUserDTO } from "./create-user-dto";
 import { Repository } from "typeorm";
 import { v4 as uuid } from "uuid";
+import bcrypt from "bcrypt";
 
 export class CreateUserUsecase {
   constructor(private userRepository: Repository<User>) {}
@@ -11,7 +12,7 @@ export class CreateUserUsecase {
       id: uuid(),
       email: data.email,
       name: data.name,
-      password: data.password,
+      password: await bcrypt.hash(data.password, 10),
       permission: data.role,
     };
 
