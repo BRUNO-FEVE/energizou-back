@@ -2,6 +2,7 @@ import companyRepository from "../../repositories/implementaion/company-reposito
 import userRepository from "../../repositories/implementaion/user-repository";
 import { CreateCompanyUsecase } from "../../use-cases/create-company/create-company-usecase";
 import { CreateCompanyValidation } from "../../use-cases/create-company/create-company-validation";
+import { GetCompanyUsecase } from "../../use-cases/get-company/get-company-usecase";
 import { GetUserUsecase } from "../../use-cases/get-user/get-user-usecase";
 import { CompanyController } from "./company-controller";
 
@@ -13,8 +14,11 @@ const createCompanyUsecase = new CreateCompanyUsecase(
   createCompanyValidator
 );
 
+const getCompanyUsecase = new GetCompanyUsecase(companyRepository);
+
 const companyController = new CompanyController(
   createCompanyUsecase,
+  getCompanyUsecase,
   getUserUsecase
 );
 

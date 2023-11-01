@@ -16,4 +16,8 @@ routes.post("/company/:userId", (req, res) => {
   companyController.create(req, res);
 });
 
+routes.get("/company/:companyCnpj", (req, res) => {
+  companyController.get(req, res);
+});
+
 export default routes;
