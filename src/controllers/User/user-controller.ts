@@ -14,7 +14,7 @@ export class UserController {
   async create(request: Request, response: Response) {
     const bodyValidation = z.object({
       name: z.string(),
-      email: z.string(),
+      email: z.string().email(),
       password: z.string(),
       role: z.string().optional().default("DEFAULT"),
     });
@@ -34,11 +34,9 @@ export class UserController {
       });
 
       response.status(201).json(userSaved);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error creating user:", error);
-      response
-        .status(500)
-        .json({ error: "An error occurred while creating the user." });
+      response.status(500).json({ error: error.message });
     }
   }
 
@@ -51,36 +49,9 @@ export class UserController {
       });
 
       response.status(200).json(user);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error getting user:", error);
-      response
-        .status(500)
-        .json({ error: "An error occurred while getting user." });
+      response.status(500).json({ error: error.message });
     }
   }
-
-  // async createCompany(request: Request, response: Response) {
-  //   const bodyValidation = z.object({
-  //     cnpj: z.number(),
-  //     name: z.string(),
-  //     cep: z.number(),
-  //     address: z.string(),
-  //     address_number: z.string(),
-  //     phone: z.string(),
-  //   });
-
-  //   const body = bodyValidation.parse(request.body);
-  //   const { userId } = request.params;
-
-  //   try {
-
-  //     const user =
-
-  //   } catch (error) {
-  //     console.error("Error creating company:", error);
-  //     response
-  //       .status(500)
-  //       .json({ error: "An error occurred while creating company." });
-  //   }
-  // }
 }

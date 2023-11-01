@@ -9,12 +9,12 @@ export class GetUserUsecase {
     const id = data.user_id;
 
     try {
-      const user = await this.userRepository.findOneByOrFail({ id: id });
+      const user = await this.userRepository.findOneByOrFail({ id });
 
       return user;
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error getting user on the database:", error);
-      throw new Error("Error Getting User on Data Base");
+      throw new Error(error.message);
     }
   }
 }

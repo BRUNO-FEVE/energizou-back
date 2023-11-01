@@ -21,9 +21,9 @@ export class CreateUserUsecase {
       const userSaved = await this.userRepository.save(user);
 
       return userSaved;
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error saving user to the database:", error);
-      throw new Error("Error Saving on Data Base");
+      throw new Error(error.message);
     }
   }
 }
