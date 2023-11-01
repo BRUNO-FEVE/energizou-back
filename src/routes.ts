@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userRouteController from "./controllers/User/index";
+import { companyController } from "./controllers/Company";
 
 const routes = Router();
 
@@ -11,6 +12,8 @@ routes.get("/user/:userId", (req, res) => {
   userRouteController.get(req, res);
 });
 
-routes.post("/user/:userId/create", (req, res) => {});
+routes.post("/company/:userId", (req, res) => {
+  companyController.create(req, res);
+});
 
 export default routes;
