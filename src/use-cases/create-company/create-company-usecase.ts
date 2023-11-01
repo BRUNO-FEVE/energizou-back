@@ -5,7 +5,7 @@ import { CreateCompanyValidation } from "./create-company-validation";
 
 export class CreateCompanyUsecase {
   constructor(
-    private userRepository: Repository<Company>,
+    private companyRepository: Repository<Company>,
     private validator: CreateCompanyValidation
   ) {}
 
@@ -21,8 +21,16 @@ export class CreateCompanyUsecase {
         user: data.user,
       };
 
-      const company = this.userRepository.create(companyProps);
-      const companySaved = await this.userRepository.save(company);
+      const companyExist = await this.companyRepository.findBy({
+        cnpj: companyProps.cnpj,
+      });
+
+      if (companyExist) {
+        throw new Error("Company Already Exists");
+      }
+
+      const company = this.companyRepository.create(companyProps);
+      const companySaved = await this.companyRepository.save(company);
 
       return companySaved;
     } catch (error: any) {
