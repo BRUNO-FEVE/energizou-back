@@ -20,4 +20,8 @@ routes.get("/company/:companyCnpj", (req, res) => {
   companyController.get(req, res);
 });
 
+routes.get("/companies/:userId", (req, res) => {
+  companyController.getAllByUserId(req, res);
+});
+
 export default routes;
