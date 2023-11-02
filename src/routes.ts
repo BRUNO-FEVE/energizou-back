@@ -24,4 +24,8 @@ routes.get("/companies/:userId", (req, res) => {
   companyController.getAllByUserId(req, res);
 });
 
+routes.delete("/user/:userId/company/:companyCnpj", (req, res) => {
+  companyController.delete(req, res);
+});
+
 export default routes;

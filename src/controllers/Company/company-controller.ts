@@ -4,13 +4,15 @@ import { CreateCompanyUsecase } from "../../use-cases/create-company/create-comp
 import { GetUserUsecase } from "../../use-cases/get-user/get-user-usecase";
 import { GetCompanyUsecase } from "../../use-cases/get-company/get-company-usecase";
 import GetAllCompaniesByUserUsecase from "../../use-cases/get-all-companies-by-user/get-all-companies-by-user-usecase";
+import { DeleteCompanyUsecase } from "../../use-cases/delete-company/delete-company-usecase";
 
 export class CompanyController {
   constructor(
     private createCompanyUsecase: CreateCompanyUsecase,
     private getCompanyUsecase: GetCompanyUsecase,
     private getUserUsecase: GetUserUsecase,
-    private getAllCompaniesByUser: GetAllCompaniesByUserUsecase
+    private getAllCompaniesByUser: GetAllCompaniesByUserUsecase,
+    private deleteCompanyUsecase: DeleteCompanyUsecase
   ) {}
 
   async create(request: Request, response: Response) {
@@ -86,6 +88,22 @@ export class CompanyController {
       response.status(200).json(companies);
     } catch (error: any) {
       console.error("Error getting company:", error);
+      response.status(500).json({ error: error.message });
+    }
+  }
+
+  async delete(request: Request, response: Response) {
+    const { userId, companyCnpj } = request.params;
+
+    try {
+      const company = await this.deleteCompanyUsecase.execute({
+        userId,
+        companyCnpj,
+      });
+
+      response.status(200).json(company);
+    } catch (error: any) {
+      console.error("Error deleting company:", error);
       response.status(500).json({ error: error.message });
     }
   }
