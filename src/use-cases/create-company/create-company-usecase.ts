@@ -21,14 +21,6 @@ export class CreateCompanyUsecase {
         user: data.user,
       };
 
-      const companyExist = await this.companyRepository.findBy({
-        cnpj: companyProps.cnpj,
-      });
-
-      if (companyExist) {
-        throw new Error("Company Already Exists");
-      }
-
       const company = this.companyRepository.create(companyProps);
       const companySaved = await this.companyRepository.save(company);
 

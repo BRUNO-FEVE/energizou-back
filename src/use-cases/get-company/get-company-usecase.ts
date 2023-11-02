@@ -3,13 +3,13 @@ import { Company } from "../../entities/Company";
 import { IGetCompanyDTO } from "./get-company-dto";
 
 export class GetCompanyUsecase {
-  constructor(private userRepository: Repository<Company>) {}
+  constructor(private companyRepository: Repository<Company>) {}
 
   async execute(data: IGetCompanyDTO) {
     const cnpj = data.company_cnpj;
 
     try {
-      const user = await this.userRepository.findOneByOrFail({ cnpj });
+      const user = await this.companyRepository.findOneByOrFail({ cnpj });
 
       return user;
     } catch (error: any) {
