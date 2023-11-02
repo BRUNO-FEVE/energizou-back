@@ -9,11 +9,21 @@ export default class GetAllCompaniesByUserUsecase {
     const user = data.user;
 
     try {
-      const companies = await this.companyRepository.find({
-        where: {
-          user: { id: user.id },
-        },
-      });
+      let companies: Company[] = [];
+
+      if (user.role === "ADMIN") {
+        companies = await this.companyRepository.find({
+          relations: {
+            user: true,
+          },
+        });
+      } else {
+        companies = await this.companyRepository.find({
+          where: {
+            user: { id: user.id },
+          },
+        });
+      }
 
       return companies;
     } catch (error: any) {
