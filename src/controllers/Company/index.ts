@@ -11,10 +11,10 @@ import { UpdateCompanyUsecase } from "../../use-cases/update-company/update-comp
 
 const getUserUsecase = new GetUserUsecase(userRepository);
 
-const createCompanyValidator = new CompanyValidation();
+const companyValidator = new CompanyValidation();
 const createCompanyUsecase = new CreateCompanyUsecase(
   companyRepository,
-  createCompanyValidator
+  companyValidator
 );
 
 const getCompanyUsecase = new GetCompanyUsecase(companyRepository);
@@ -24,7 +24,10 @@ const getAllByUserIdUsecase = new GetAllCompaniesByUserUsecase(
 
 const deleteCompanyUsecase = new DeleteCompanyUsecase(companyRepository);
 
-const updateCompanyUsecase = new UpdateCompanyUsecase(companyRepository);
+const updateCompanyUsecase = new UpdateCompanyUsecase(
+  companyRepository,
+  companyValidator
+);
 
 const companyController = new CompanyController(
   createCompanyUsecase,
