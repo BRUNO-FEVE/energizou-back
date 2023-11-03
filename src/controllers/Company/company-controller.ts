@@ -34,7 +34,7 @@ export class CompanyController {
 
     try {
       const user = await this.getUserUsecase.execute({
-        user_id: userId,
+        userId,
       });
 
       if (!user) {
@@ -46,7 +46,7 @@ export class CompanyController {
         name,
         cep,
         address,
-        address_number,
+        addressNumber: address_number,
         phone,
         user,
       });
@@ -63,7 +63,7 @@ export class CompanyController {
 
     try {
       const company = await this.getCompanyUsecase.execute({
-        company_cnpj: companyCnpj,
+        companyCnpj: companyCnpj,
       });
 
       response.status(200).json(company);
@@ -78,7 +78,7 @@ export class CompanyController {
 
     try {
       const user = await this.getUserUsecase.execute({
-        user_id: userId,
+        userId,
       });
 
       if (!user) {
@@ -129,7 +129,7 @@ export class CompanyController {
 
     try {
       const company = await this.getCompanyUsecase.execute({
-        company_cnpj: currentCnpj,
+        companyCnpj: currentCnpj,
       });
 
       if (!company) {
@@ -143,7 +143,7 @@ export class CompanyController {
         currentCnpj,
         newCnpj,
         address,
-        address_number,
+        addressNumber: address_number,
         cep,
         name,
         phone,

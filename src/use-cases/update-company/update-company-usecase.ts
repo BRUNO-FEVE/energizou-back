@@ -19,7 +19,7 @@ export class UpdateCompanyUsecase {
           cep: this.companyValidation.cep(data.cep),
           address: this.companyValidation.address(data.address),
           address_number: this.companyValidation.addressNumber(
-            data.address_number
+            data.addressNumber
           ),
           phone: this.companyValidation.phone(data.phone),
         }

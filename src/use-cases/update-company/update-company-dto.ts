@@ -5,6 +5,6 @@ export interface IUpdateCompanyDTO {
   name?: string;
   cep?: number;
   address?: string;
-  address_number?: number;
+  addressNumber?: number;
   phone?: number;
 }

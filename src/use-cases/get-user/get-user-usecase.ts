@@ -6,7 +6,7 @@ export class GetUserUsecase {
   constructor(private userRepository: Repository<User>) {}
 
   async execute(data: IGetUserDTO) {
-    const id = data.user_id;
+    const id = data.userId;
 
     try {
       const user = await this.userRepository.findOneByOrFail({ id });

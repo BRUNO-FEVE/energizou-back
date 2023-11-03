@@ -6,7 +6,7 @@ export class GetCompanyUsecase {
   constructor(private companyRepository: Repository<Company>) {}
 
   async execute(data: IGetCompanyDTO) {
-    const cnpj = data.company_cnpj;
+    const cnpj = data.companyCnpj;
 
     try {
       const user = await this.companyRepository.findOneOrFail({
