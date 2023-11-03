@@ -1,12 +1,12 @@
 import { Repository } from "typeorm";
 import { ICreateCompanyDTO } from "./create-company-dto";
 import { Company } from "../../entities/Company";
-import { CreateCompanyValidation } from "./create-company-validation";
+import { CompanyValidation } from "../../controllers/Company/company-validation";
 
 export class CreateCompanyUsecase {
   constructor(
     private companyRepository: Repository<Company>,
-    private validator: CreateCompanyValidation
+    private validator: CompanyValidation
   ) {}
 
   async execute(data: ICreateCompanyDTO) {

@@ -5,6 +5,7 @@ import { GetUserUsecase } from "../../use-cases/get-user/get-user-usecase";
 import { GetCompanyUsecase } from "../../use-cases/get-company/get-company-usecase";
 import GetAllCompaniesByUserUsecase from "../../use-cases/get-all-companies-by-user/get-all-companies-by-user-usecase";
 import { DeleteCompanyUsecase } from "../../use-cases/delete-company/delete-company-usecase";
+import { UpdateCompanyUsecase } from "../../use-cases/update-company/update-company-usecase";
 
 export class CompanyController {
   constructor(
@@ -12,7 +13,8 @@ export class CompanyController {
     private getCompanyUsecase: GetCompanyUsecase,
     private getUserUsecase: GetUserUsecase,
     private getAllCompaniesByUser: GetAllCompaniesByUserUsecase,
-    private deleteCompanyUsecase: DeleteCompanyUsecase
+    private deleteCompanyUsecase: DeleteCompanyUsecase,
+    private updateCompanyUsecase: UpdateCompanyUsecase
   ) {}
 
   async create(request: Request, response: Response) {
@@ -104,6 +106,52 @@ export class CompanyController {
       response.status(200).json(company);
     } catch (error: any) {
       console.error("Error deleting company:", error);
+      response.status(500).json({ error: error.message });
+    }
+  }
+
+  async update(request: Request, response: Response) {
+    const bodyValidation = z.object({
+      cnpj: z.string().optional(),
+      name: z.string().optional(),
+      cep: z.number().optional(),
+      address: z.string().optional(),
+      address_number: z.number().optional(),
+      phone: z.number().optional(),
+    });
+
+    const { cnpj, name, cep, address, address_number, phone } =
+      bodyValidation.parse(request.body);
+
+    const newCnpj = cnpj;
+
+    const { userId, currentCnpj } = request.params;
+
+    try {
+      const company = await this.getCompanyUsecase.execute({
+        company_cnpj: currentCnpj,
+      });
+
+      if (!company) {
+        throw new Error("Company Not Exists");
+      } else if (company.user.id !== userId) {
+        throw new Error("Permission Denied");
+      }
+
+      const companyUpdated = await this.updateCompanyUsecase.execute({
+        userId,
+        currentCnpj,
+        newCnpj,
+        address,
+        address_number,
+        cep,
+        name,
+        phone,
+      });
+
+      response.status(200).json(companyUpdated);
+    } catch (error: any) {
+      console.error("Error updating company:", error);
       response.status(500).json({ error: error.message });
     }
   }

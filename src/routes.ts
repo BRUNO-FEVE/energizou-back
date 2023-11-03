@@ -28,4 +28,8 @@ routes.delete("/user/:userId/company/:companyCnpj", (req, res) => {
   companyController.delete(req, res);
 });
 
+routes.put("/user/:userId/company/:currentCnpj", (req, res) => {
+  companyController.update(req, res);
+});
+
 export default routes;

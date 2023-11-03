@@ -9,7 +9,12 @@ export class GetCompanyUsecase {
     const cnpj = data.company_cnpj;
 
     try {
-      const user = await this.companyRepository.findOneByOrFail({ cnpj });
+      const user = await this.companyRepository.findOneOrFail({
+        relations: {
+          user: true,
+        },
+        where: { cnpj },
+      });
 
       return user;
     } catch (error: any) {

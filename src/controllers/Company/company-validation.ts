@@ -3,7 +3,7 @@ const CEP_FIXED_LENGTH = 8;
 const PHONE_FIXED_LENGTH = 14;
 const MIN_STRING_LENGTH = 3;
 
-export class CreateCompanyValidation {
+export class CompanyValidation {
   cnpj(cnpj: string) {
     if (cnpj.length !== CNPJ_FIXED_LENGTH) {
       throw new Error("Invalid CNPJ");
