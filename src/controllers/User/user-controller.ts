@@ -59,7 +59,12 @@ export class UserController {
   }
 
   async validate(request: Request, response: Response) {
-    const { username, password } = request.params;
+    const bodyValidation = z.object({
+      password: z.string(),
+    });
+
+    const { password } = bodyValidation.parse(request.body);
+    const { username } = request.params;
 
     try {
       const validationResponse = await this.validateUser.execute({

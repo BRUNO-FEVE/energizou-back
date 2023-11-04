@@ -1,6 +1,7 @@
 import { Repository } from "typeorm";
 import { User } from "../../entities/User";
 import { IValidateUserDTO } from "./validate-user-dto";
+import bcrypt from "bcrypt";
 
 export class ValidateUserUsecase {
   constructor(private userRepository: Repository<User>) {}
@@ -9,27 +10,27 @@ export class ValidateUserUsecase {
     const { username, password } = data;
 
     try {
-      const userExist = await this.userRepository.exist({
-        where: {
-          name: username,
-        },
-      });
-
-      if (!userExist) {
-        return "Usuario Invalido";
-      }
-
       const user = await this.userRepository.findOneBy({
         name: username,
       });
 
-      if (user?.password !== password) {
-        return "Senha/Usuario Invalido";
+      if (!user) {
+        throw new Error("Usuario Invalido");
+      }
+
+      console.log(user.password);
+      console.log(password);
+
+      const isValidPassword = await bcrypt.compare(password, user.password);
+
+      if (!isValidPassword) {
+        throw new Error("Senha/Usuario Invalido");
       }
 
       return user;
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error validating the user to the database:", error);
+      throw error;
     }
   }
 }

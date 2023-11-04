@@ -1,7 +1,6 @@
 import { Router } from "express";
 import userRouteController from "./controllers/User/index";
 import { companyController } from "./controllers/Company";
-import { UserController } from "./controllers/User/user-controller";
 
 const routes = Router();
 
@@ -33,7 +32,7 @@ routes.put("/user/:userId/company/:currentCnpj", (req, res) => {
   companyController.update(req, res);
 });
 
-routes.post("/user/:username/validate/:password", (req, res) => {
+routes.post("/login/:username", (req, res) => {
   userRouteController.validate(req, res);
 });
 
