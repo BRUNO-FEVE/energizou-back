@@ -45,7 +45,7 @@ export class UserController {
 
     try {
       const user = await this.getUserUsecase.execute({
-        user_id: userId,
+        userId: userId,
       });
 
       response.status(200).json(user);
