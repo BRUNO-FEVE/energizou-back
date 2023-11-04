@@ -2,13 +2,16 @@ import { Request, Response } from "express";
 import { z } from "zod";
 import { CreateUserUsecase } from "../../use-cases/create-user/create-user-usecase";
 import { GetUserUsecase } from "../../use-cases/get-user/get-user-usecase";
+import { ValidateUserUsecase } from "../../use-cases/validate-user/validate-user-usecase";
+import { User } from "../../entities/User";
 
 const ROLES = ["DEFAULT", "ADMIN"];
 
 export class UserController {
   constructor(
     private createUserUsecase: CreateUserUsecase,
-    private getUserUsecase: GetUserUsecase
+    private getUserUsecase: GetUserUsecase,
+    private validateUser: ValidateUserUsecase
   ) {}
 
   async create(request: Request, response: Response) {
@@ -51,6 +54,26 @@ export class UserController {
       response.status(200).json(user);
     } catch (error: any) {
       console.error("Error getting user:", error);
+      response.status(500).json({ error: error.message });
+    }
+  }
+
+  async validate(request: Request, response: Response) {
+    const { username, password } = request.params;
+
+    try {
+      const validationResponse = await this.validateUser.execute({
+        username,
+        password,
+      });
+
+      if (validationResponse instanceof User) {
+        response.status(200).json(validationResponse);
+      } else {
+        response.status(400).json({ error: validationResponse });
+      }
+    } catch (error: any) {
+      console.error("Error validating user:", error);
       response.status(500).json({ error: error.message });
     }
   }
