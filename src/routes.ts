@@ -32,7 +32,7 @@ routes.put("/user/:userId/company/:currentCnpj", (req, res) => {
   companyController.update(req, res);
 });
 
-routes.post("/login/:username", (req, res) => {
+routes.post("/login/:email", (req, res) => {
   userRouteController.validate(req, res);
 });
 

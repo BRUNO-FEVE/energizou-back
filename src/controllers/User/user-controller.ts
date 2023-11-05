@@ -64,11 +64,13 @@ export class UserController {
     });
 
     const { password } = bodyValidation.parse(request.body);
-    const { username } = request.params;
+    const { email } = request.params;
+
+    let validationResponse;
 
     try {
-      const validationResponse = await this.validateUser.execute({
-        username,
+      validationResponse = await this.validateUser.execute({
+        email,
         password,
       });
 
@@ -79,7 +81,7 @@ export class UserController {
       }
     } catch (error: any) {
       console.error("Error validating user:", error);
-      response.status(500).json({ error: error.message });
+      response.status(400).json({ error: validationResponse });
     }
   }
 }
