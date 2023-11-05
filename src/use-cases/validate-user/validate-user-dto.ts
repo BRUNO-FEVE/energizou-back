@@ -1,4 +1,4 @@
 export interface IValidateUserDTO {
-  username: string;
+  email: string;
   password: string;
 }

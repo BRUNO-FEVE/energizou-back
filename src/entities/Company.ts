@@ -9,8 +9,8 @@ export class Company {
   @Column({ type: "text" })
   name: string;
 
-  @Column({ type: "int" })
-  cep: number;
+  @Column({ type: "text" })
+  cep: string;
 
   @Column({ type: "text" })
   address: string;

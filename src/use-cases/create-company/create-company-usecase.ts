@@ -16,7 +16,7 @@ export class CreateCompanyUsecase {
         name: this.validator.name(data.name),
         cep: this.validator.cep(data.cep),
         address: this.validator.address(data.address),
-        addressNumber: this.validator.addressNumber(data.addressNumber),
+        address_number: this.validator.addressNumber(data.addressNumber),
         phone: this.validator.phone(data.phone),
         user: data.user,
       };

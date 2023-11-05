@@ -7,11 +7,11 @@ export class ValidateUserUsecase {
   constructor(private userRepository: Repository<User>) {}
 
   async execute(data: IValidateUserDTO) {
-    const { username, password } = data;
+    const { email, password } = data;
 
     try {
       const user = await this.userRepository.findOneBy({
-        name: username,
+        email,
       });
 
       if (!user) {

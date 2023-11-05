@@ -1,6 +1,7 @@
 const CNPJ_FIXED_LENGTH = 14;
 const CEP_FIXED_LENGTH = 8;
-const PHONE_FIXED_LENGTH = 14;
+const PHONE_FIXED_LENGTH_MIN = 10;
+const PHONE_FIXED_LENGTH_MAX = 14;
 const MIN_STRING_LENGTH = 3;
 
 export class CompanyValidation {
@@ -22,14 +23,12 @@ export class CompanyValidation {
     return name;
   }
 
-  cep(cep: number | undefined) {
+  cep(cep: string | undefined) {
     if (!cep) return;
 
-    const cepString = cep.toString();
-    if (cepString.length !== CEP_FIXED_LENGTH) {
-      throw new Error("Invalid CEP");
-    }
-    if (!/^\d+$/.test(cepString)) {
+    const cepLength = cep.length;
+    console.log(cepLength);
+    if (cepLength !== CEP_FIXED_LENGTH) {
       throw new Error("Invalid CEP");
     }
     return cep;
@@ -56,8 +55,12 @@ export class CompanyValidation {
   phone(phone: number | undefined) {
     if (!phone) return;
 
-    const phoneString = phone.toString();
-    if (phoneString.length !== PHONE_FIXED_LENGTH) {
+    const phoneLength = phone.toString().length;
+    console.log(phoneLength);
+    if (
+      phoneLength < PHONE_FIXED_LENGTH_MIN ||
+      phoneLength > PHONE_FIXED_LENGTH_MAX
+    ) {
       throw new Error("Invalid Phone Number");
     }
     return phone;

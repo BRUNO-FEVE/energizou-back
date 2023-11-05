@@ -21,7 +21,7 @@ export class CompanyController {
     const bodyValidation = z.object({
       cnpj: z.string(),
       name: z.string(),
-      cep: z.number(),
+      cep: z.string(),
       address: z.string(),
       address_number: z.number(),
       phone: z.number(),
@@ -114,7 +114,7 @@ export class CompanyController {
     const bodyValidation = z.object({
       cnpj: z.string().optional(),
       name: z.string().optional(),
-      cep: z.number().optional(),
+      cep: z.string().optional(),
       address: z.string().optional(),
       address_number: z.number().optional(),
       phone: z.number().optional(),

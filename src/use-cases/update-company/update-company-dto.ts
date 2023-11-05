@@ -3,7 +3,7 @@ export interface IUpdateCompanyDTO {
   currentCnpj: string;
   newCnpj?: string;
   name?: string;
-  cep?: number;
+  cep?: string;
   address?: string;
   addressNumber?: number;
   phone?: number;
