@@ -26,6 +26,8 @@ yarn start:dev
 
 Nota: Certifique-se de que o Docker está em execução antes de executar os comandos. O comando yarn install instalará as dependências necessárias. O comando do Docker inicializa o contêiner do banco de dados. Os comandos TypeORM são usados para executar as migrações e semear o banco de dados com dados iniciais. Finalmente, yarn start:dev iniciará o servidor de desenvolvimento.
 
+**OBS:** O envio do arquivo `.env` para o repositório foi intencional para simplificar o processo de execução e avaliação do projeto.
+
 
 ## Endpoints da API
 
