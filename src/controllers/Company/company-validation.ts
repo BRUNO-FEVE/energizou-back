@@ -1,7 +1,7 @@
 const CNPJ_FIXED_LENGTH = 14;
 const CEP_FIXED_LENGTH = 8;
 const PHONE_FIXED_LENGTH_MIN = 10;
-const PHONE_FIXED_LENGTH_MAX = 14;
+const PHONE_FIXED_LENGTH_MAX = 12;
 const MIN_STRING_LENGTH = 3;
 
 export class CompanyValidation {
